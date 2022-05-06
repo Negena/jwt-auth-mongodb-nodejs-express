@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div id="login-box">
+  <div class="left">
+    <h1>Sign in</h1>
+   <form action="/login" method="post">
+    <input type="text" name="username" placeholder="Username" />
+    <input type="password" id="password" name="password" placeholder="Password" />
+
+    <input type="submit" name="signup_submit" value="log in" />
+
+  </form>
+  </div>
+
+  <div class="right">
+    <span class="loginwith">Sign in with<br />social network</span>
+
+    <button class="social-signin facebook">Log in with facebook</button>
+    <button class="social-signin twitter">Log in with Twitter</button>
+    <button class="social-signin google">Log in with Google+</button>
+    <button class="social-signin twitter"><a href="/">Sign up</a></button>
+    <button class="social-signin google"><a href="/change">change the password</a></button>
+
+</div>
+  <div class="or">OR</div>
+</div>
+
+<script>
+  const password = document.getElementById("password")
+  const result = await fetch("/change", {
+  method: 'POST',
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    newPassword: password,
+    token: localStorage.getItem("token")
+  })
+}).then((res) => {
+  res.json()
+}).catch((err) => {
+  res.send(err)
+})
+</script>
+  </body>
+</html>
